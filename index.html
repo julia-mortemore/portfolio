@@ -60,6 +60,7 @@
     background: linear-gradient(90deg, #FF5A3C 0%, #A66BFF 55%, #3EC1FF 100%);
     -webkit-background-clip: text; background-clip: text; color: transparent;
     text-decoration: none; font-style: italic;
+    display: inline-block; line-height: 1.5; padding: 3px 2px; overflow: visible;
   }
   .nav-links { display: flex; align-items: center; gap: 24px; font-size: 13px; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; }
   .nav-links a { color: var(--ink-secondary); text-decoration: none; transition: color 0.2s ease; }
@@ -274,6 +275,35 @@
   }
   .hero-sm-sub { font-size: 16px; line-height: 1.6; color: var(--ink-secondary); max-width: 520px; }
 
+  /* ===== CASE STUDY HERO NAV — hover-revealed prev/next arrows, no wraparound ===== */
+  .case-nav-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 600; color: var(--ink-secondary);
+    text-decoration: none; white-space: nowrap;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s ease, color 0.2s ease;
+    z-index: 3;
+  }
+  .hero-sm:hover .case-nav-arrow { opacity: 1; pointer-events: auto; }
+  .case-nav-arrow:hover { color: #FF5A3C; }
+  .case-nav-arrow .chevron { font-size: 17px; line-height: 1; }
+  .case-nav-prev { left: 32px; }
+  .case-nav-next { right: 32px; flex-direction: row-reverse; }
+
+  /* ===== BREADCRUMB — subtle "Home > Page" trail, sits between nav and hero content on every non-home view ===== */
+  .breadcrumb {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.01em;
+  }
+  .breadcrumb a { color: var(--ink-tertiary); text-decoration: none; transition: color 0.2s ease; }
+  .breadcrumb a:hover { color: #FF5A3C; }
+  .breadcrumb .crumb-sep { color: var(--ink-tertiary); opacity: 0.6; }
+  .breadcrumb .crumb-current { color: var(--ink-secondary); }
+  /* placement variants — breadcrumb sits in the content flow, not the hero, on case studies with an Overview section */
+  .breadcrumb-content { margin: 16px 0 40px; }
+  .breadcrumb-row { max-width: 1280px; margin: 0 auto; padding: 0 56px; box-sizing: border-box; }
+
   .placeholder-body { text-align: center; padding: 40px 56px 120px; }
   .placeholder-body p { font-size: 14px; color: var(--ink-tertiary); max-width: 460px; margin: 0 auto; line-height: 1.6; }
 
@@ -304,6 +334,7 @@
   .cs-hero .hero-sm-eyebrow span { color: var(--ink-tertiary); font-weight: 500; text-transform: none; letter-spacing: 0; }
 
   /* ===== CASE STUDY — How a UXer Explored Business Thinking (blue hero variant) ===== */
+  .cs-hero-blue { min-height: calc(42vh + 45px); }
   .cs-hero-blue::before {
     background: radial-gradient(ellipse 75% 65% at 18% 20%, rgba(58,130,255,0.22), transparent 62%),
                 radial-gradient(ellipse 70% 60% at 55% 0%, rgba(94,180,255,0.18), transparent 60%),
@@ -615,6 +646,7 @@
   <section class="hero-sm">
     <div class="hero-sm-inner">
       <div class="hero-sm-content">
+        <div class="breadcrumb"><a href="#home" data-view="home" data-scroll="home">Home</a><span class="crumb-sep">&rsaquo;</span><span class="crumb-current">Resume</span></div>
         <div class="hero-sm-eyebrow">Resume</div>
         <div class="hero-sm-title">The full story, on paper.</div>
         <p class="hero-sm-sub">A closer look at the roles, projects and career path behind Raye Media — coming soon.</p>
@@ -633,6 +665,7 @@
   <section class="hero-sm">
     <div class="hero-sm-inner">
       <div class="hero-sm-content">
+        <div class="breadcrumb"><a href="#home" data-view="home" data-scroll="home">Home</a><span class="crumb-sep">&rsaquo;</span><span class="crumb-current">Lecturing</span></div>
         <div class="hero-sm-eyebrow">Lecturing</div>
         <div class="hero-sm-title">Teaching what I practice.</div>
         <p class="hero-sm-sub">Guest lecturing at Vega School and Wits University — the full write-up is on its way.</p>
@@ -651,6 +684,7 @@
   <section class="hero-sm">
     <div class="hero-sm-inner">
       <div class="hero-sm-content">
+        <div class="breadcrumb"><a href="#home" data-view="home" data-scroll="home">Home</a><span class="crumb-sep">&rsaquo;</span><span class="crumb-current">Fun Facts</span></div>
         <div class="hero-sm-eyebrow">Fun Facts</div>
         <div class="hero-sm-title">The stuff outside the deck.</div>
         <p class="hero-sm-sub">A lighter side of Julia — hobbies, quirks and everything not on the CV. Coming soon.</p>
@@ -674,7 +708,10 @@
         <p class="hero-sm-sub">How we brought on user engagement and tested the theory with user testing.</p>
       </div>
     </div>
+    <a href="#case-uxer-business" class="case-nav-arrow case-nav-next" data-view="case-uxer-business"><span class="chevron">&rsaquo;</span> Next case study</a>
   </section>
+
+  <div class="breadcrumb-row"><div class="breadcrumb breadcrumb-content"><a href="#home" data-view="home" data-scroll="home">Home</a><span class="crumb-sep">&rsaquo;</span><span class="crumb-current">Gamified &amp; Tested</span></div></div>
 
   <div class="cs-tabs-wrap">
     <div class="cs-tabs">
@@ -684,7 +721,7 @@
   </div>
 
   <!-- ===== TAB: INTRODUCTION ===== -->
-  <div class="cs-panel active" data-panel="intro">
+  <div class="cs-panel active" data-panel="intro" style="padding-top:24px;">
 
     <div class="cs-section">
       <div class="cs-eyebrow">Overview</div>
@@ -777,7 +814,7 @@
   </div>
 
   <!-- ===== TAB: LOYALTY & REWARDS ===== -->
-  <div class="cs-panel" data-panel="loyalty">
+  <div class="cs-panel" data-panel="loyalty" style="padding-top:24px;">
 
     <div class="cs-section">
       <div class="cs-eyebrow">Deep dive</div>
@@ -899,9 +936,13 @@
         <p class="hero-sm-sub">When the perfectionist in me wouldn&rsquo;t accept not understanding the product and being absolutely lost in development meetings.</p>
       </div>
     </div>
+    <a href="#case-gamified" class="case-nav-arrow case-nav-prev" data-view="case-gamified"><span class="chevron">&lsaquo;</span> Previous case study</a>
+    <a href="#case-placeholder-3" class="case-nav-arrow case-nav-next" data-view="case-placeholder-3"><span class="chevron">&rsaquo;</span> Next case study</a>
   </section>
 
-  <div class="cs-panel active" data-panel="intro" style="padding-top:56px;">
+  <div class="breadcrumb-row"><div class="breadcrumb breadcrumb-content"><a href="#home" data-view="home" data-scroll="home">Home</a><span class="crumb-sep">&rsaquo;</span><span class="crumb-current">How a UXer Explored Business Thinking</span></div></div>
+
+  <div class="cs-panel active" data-panel="intro" style="padding-top:0;">
 
     <div class="cs-section">
       <div class="cs-eyebrow">Overview</div>
@@ -1032,6 +1073,47 @@
 
   </div>
 
+  <footer>Raye Media &mdash; case study view, part of the one-pager shell review.</footer>
+</div>
+
+<!-- ============ CASE STUDY 3 (placeholder shell, for prev/next nav testing) ============ -->
+<div id="view-case-placeholder-3" class="view">
+  <section class="hero-sm cs-hero">
+    <div class="hero-sm-inner">
+      <div class="hero-sm-content">
+        <div class="breadcrumb"><a href="#home" data-view="home" data-scroll="home">Home</a><span class="crumb-sep">&rsaquo;</span><span class="crumb-current">Case Study Three</span></div>
+        <div class="hero-sm-eyebrow">Case study <span>&middot; Placeholder</span></div>
+        <div class="hero-sm-title">Case Study Three</div>
+        <p class="hero-sm-sub">A placeholder shell — swap this in when the next write-up is ready.</p>
+      </div>
+    </div>
+    <a href="#case-uxer-business" class="case-nav-arrow case-nav-prev" data-view="case-uxer-business"><span class="chevron">&lsaquo;</span> Previous case study</a>
+    <a href="#case-placeholder-4" class="case-nav-arrow case-nav-next" data-view="case-placeholder-4"><span class="chevron">&rsaquo;</span> Next case study</a>
+  </section>
+  <div class="dotted-rule"></div>
+  <div class="placeholder-body">
+    <p>This is a placeholder case study — just here so the previous/next navigation has somewhere to go. Swap in the real content whenever it's ready.</p>
+  </div>
+  <footer>Raye Media &mdash; case study view, part of the one-pager shell review.</footer>
+</div>
+
+<!-- ============ CASE STUDY 4 (placeholder shell, for prev/next nav testing) ============ -->
+<div id="view-case-placeholder-4" class="view">
+  <section class="hero-sm cs-hero">
+    <div class="hero-sm-inner">
+      <div class="hero-sm-content">
+        <div class="breadcrumb"><a href="#home" data-view="home" data-scroll="home">Home</a><span class="crumb-sep">&rsaquo;</span><span class="crumb-current">Case Study Four</span></div>
+        <div class="hero-sm-eyebrow">Case study <span>&middot; Placeholder</span></div>
+        <div class="hero-sm-title">Case Study Four</div>
+        <p class="hero-sm-sub">Another placeholder shell — the last one in the sequence, so there&rsquo;s no &ldquo;next&rdquo; arrow here.</p>
+      </div>
+    </div>
+    <a href="#case-placeholder-3" class="case-nav-arrow case-nav-prev" data-view="case-placeholder-3"><span class="chevron">&lsaquo;</span> Previous case study</a>
+  </section>
+  <div class="dotted-rule"></div>
+  <div class="placeholder-body">
+    <p>This is a placeholder case study — just here so the previous/next navigation has somewhere to go. Swap in the real content whenever it's ready.</p>
+  </div>
   <footer>Raye Media &mdash; case study view, part of the one-pager shell review.</footer>
 </div>
 
