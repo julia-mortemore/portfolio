@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Raye Media — Black & White, Rainbow on Reveal</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    background: #FAFAFA;
+    color: #141414;
+    padding: 64px 48px 140px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  h1 { font-size: 32px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 8px; }
+  .sub { color: #6b6b6b; font-size: 15.5px; margin-bottom: 12px; max-width: 640px; line-height: 1.6; }
+  .rule {
+    display: inline-block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #141414;
+    background: #EDEDED;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin: 2px 6px 2px 0;
+  }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: #8A8A8A; margin: 64px 0 8px; font-weight: 600; }
+  .h2sub { font-size: 13.5px; color: #6b6b6b; margin-bottom: 24px; max-width: 560px; line-height: 1.6; }
+
+  /* ===== Neutral scale ===== */
+  .row { display: flex; gap: 2px; border-radius: 10px; overflow: hidden; }
+  .swatch { flex: 1; height: 88px; display: flex; align-items: flex-end; padding: 12px; font-size: 12px; }
+  .swatch .name { font-weight: 600; }
+
+  /* ===== Interaction reveal ===== */
+  .demo-row { display: flex; gap: 16px; margin-top: 8px; flex-wrap: wrap; }
+  .card {
+    flex: 1; min-width: 220px;
+    border: 1px solid #E2E2E2;
+    border-radius: 12px;
+    padding: 22px;
+    background: #fff;
+    transition: all 0.25s ease;
+    cursor: pointer;
+  }
+  .card .tag {
+    display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: #8A8A8A; margin-bottom: 10px; transition: color 0.25s ease;
+  }
+  .card h3 { font-size: 17px; font-weight: 600; margin-bottom: 6px; color: #141414; }
+  .card p { font-size: 13.5px; color: #6b6b6b; line-height: 1.5; }
+  .card::before {
+    content: ''; display: block; width: 28px; height: 3px; border-radius: 2px;
+    background: #D6D6D6; margin-bottom: 14px; transition: background 0.25s ease, width 0.25s ease;
+  }
+  .card:hover { border-color: transparent; box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .card:hover::before { width: 48px; }
+  .card.c1:hover::before { background: #FF5A3C; }
+  .card.c1:hover .tag { color: #FF5A3C; }
+  .card.c2:hover::before { background: #A66BFF; }
+  .card.c2:hover .tag { color: #A66BFF; }
+  .card.c3:hover::before { background: #00A87E; }
+  .card.c3:hover .tag { color: #00A87E; }
+
+  .btn-row { display: flex; gap: 14px; margin-top: 8px; align-items: center; }
+  .btn {
+    padding: 13px 24px; border-radius: 8px; font-size: 14px; font-weight: 600;
+    border: 1.5px solid #141414; background: transparent; color: #141414;
+    transition: all 0.2s ease; cursor: pointer;
+  }
+  .btn:hover { background: #FF5A3C; border-color: #FF5A3C; color: #fff; }
+  .hint { font-size: 12.5px; color: #8A8A8A; }
+
+  /* ===== Proof/result moment ===== */
+  .proof {
+    margin-top: 8px;
+    border: 1px solid #E2E2E2;
+    border-radius: 14px;
+    padding: 36px 40px;
+    background: #fff;
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .stat .label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #8A8A8A; margin-bottom: 6px; }
+  .stat .value { font-size: 40px; font-weight: 700; letter-spacing: -0.02em; }
+  .stat.s1 .value { color: #FF5A3C; }
+  .stat.s2 .value { color: #00A87E; }
+  .stat.s3 .value { color: #A66BFF; }
+  .stat .value.mono { color: #141414; }
+
+  /* ===== Project thumbnails ===== */
+  .thumbs { display: flex; gap: 16px; margin-top: 8px; }
+  .thumb {
+    flex: 1; height: 160px; border-radius: 12px; position: relative; overflow: hidden;
+    display: flex; align-items: flex-end; padding: 16px; color: #fff; font-weight: 600; font-size: 14px;
+  }
+  .thumb.t1 { background: linear-gradient(135deg, #FF5A3C, #FFC542); }
+  .thumb.t2 { background: linear-gradient(135deg, #A66BFF, #3EC1FF); }
+  .thumb.t3 { background: linear-gradient(135deg, #00C896, #3EC1FF); }
+  .thumb::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.35), transparent 55%);
+  }
+  .thumb span { position: relative; z-index: 1; }
+
+  footer { margin-top: 72px; font-size: 12px; color: #8A8A8A; }
+</style>
+</head>
+<body>
+
+  <h1>Black &amp; White, Rainbow on Reveal</h1>
+  <div class="sub">The interface lives in monochrome by default. Colour appears only where the system is proving something — a live interaction, a result, or the work itself. Try hovering the cards and button below.</div>
+  <div>
+    <span class="rule">Rest state → grey</span>
+    <span class="rule">Interaction → colour</span>
+    <span class="rule">Proof / result → colour</span>
+    <span class="rule">The work → colour</span>
+  </div>
+
+  <h2>Neutral backbone</h2>
+  <div class="h2sub">Everything not actively proving something lives here — structure, navigation, body copy, resting UI.</div>
+  <div class="row">
+    <div class="swatch" style="background:#141414; color:#FAFAFA;"><span class="name">Ink #141414</span></div>
+    <div class="swatch" style="background:#3D3D3D; color:#FAFAFA;"><span class="name">Charcoal #3D3D3D</span></div>
+    <div class="swatch" style="background:#8A8A8A; color:#141414;"><span class="name">Stone #8A8A8A</span></div>
+    <div class="swatch" style="background:#E2E2E2; color:#141414;"><span class="name">Mist #E2E2E2</span></div>
+    <div class="swatch" style="background:#FAFAFA; color:#141414; border:1px solid #E2E2E2;"><span class="name">Paper #FAFAFA</span></div>
+  </div>
+
+  <h2>Reveal 1 — Interaction</h2>
+  <div class="h2sub">Cards and buttons are strictly grey at rest. Colour only appears on hover — the moment the interface responds to you.</div>
+  <div class="demo-row">
+    <div class="card c1"><span class="tag">Case Study</span><h3>Wayfinding App</h3><p>Redesigning navigation for a 40k-user transit platform.</p></div>
+    <div class="card c2"><span class="tag">Case Study</span><h3>Checkout Flow</h3><p>Cutting drop-off by rethinking a 6-step form.</p></div>
+    <div class="card c3"><span class="tag">Case Study</span><h3>Design System</h3><p>Unifying six product teams under one component library.</p></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn">View the work</button>
+    <span class="hint">← hover me</span>
+  </div>
+
+  <h2>Reveal 2 — Proof &amp; results</h2>
+  <div class="h2sub">Colour is reserved for outcomes — it marks the moment a claim becomes evidence.</div>
+  <div class="proof">
+    <div class="stat s1"><div class="label">Drop-off reduced</div><div class="value">38%</div></div>
+    <div class="stat s2"><div class="label">Task success rate</div><div class="value">94%</div></div>
+    <div class="stat s3"><div class="label">Time to first action</div><div class="value">1.8s</div></div>
+    <div class="stat"><div class="label">Projects shipped</div><div class="value mono">27</div></div>
+  </div>
+
+  <h2>Reveal 3 — The work itself</h2>
+  <div class="h2sub">Project thumbnails are the one place colour lives permanently — the portfolio's chrome stays neutral so the work reads as the source of colour, not the frame around it.</div>
+  <div class="thumbs">
+    <div class="thumb t1"><span>Wayfinding App</span></div>
+    <div class="thumb t2"><span>Checkout Flow</span></div>
+    <div class="thumb t3"><span>Design System</span></div>
+  </div>
+
+  <footer>Raye Media — "black &amp; white, rainbow on reveal" concept, draft 1</footer>
+</body>
+</html>
