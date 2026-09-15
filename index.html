@@ -39,7 +39,7 @@
 
   /* ===== NAV (floating pill, always floating — never docks) ===== */
   .nav-wrap {
-    position: fixed; top: 64px; left: 0; right: 0; z-index: 50;
+    position: fixed; top: 16px; left: 0; right: 0; z-index: 50;
     display: flex; justify-content: center; align-items: center; gap: 12px; padding: 0 56px;
     pointer-events: none;
   }
@@ -54,7 +54,7 @@
   }
   nav.scrolled { box-shadow: 0 12px 32px rgba(0,0,0,0.18), 0 1px 2px rgba(0,0,0,0.07); }
   /* body needs top padding now that nav is fixed/floating and not part of doc flow */
-  body { padding-top: 34px; }
+  body { padding-top: 64px; }
   .nav-wordmark {
     font-size: 17px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap;
     background: linear-gradient(90deg, #FF5A3C 0%, #A66BFF 55%, #3EC1FF 100%);
